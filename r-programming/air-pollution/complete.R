@@ -1,27 +1,31 @@
 complete <- function(directory, id = 1:332) {
-  listOfID <- NULL
-  listOfNobs <- NULL
+  groupOfID <- NULL
+  groupOfNobs <- NULL
   for(monitor in id) {
-    pollutionData <- readLectureFromMonitor(monitor, directory)
-    count <- 0
-    for(i in row.names(pollutionData)) {
-      if(isComplete(pollutionData[i, ])) {
-        count <- count + 1
-      }
-    }
-    if(count > 0) {
-      listOfID <- c(listOfID, monitor)
-      listOfNobs <- c(listOfNobs, count)
+    numberObservedCases <- completeCasesFromAllObserved(readLectureOfMonitor(monitor, directory))
+    if(numberObservedCases > 0) {
+      groupOfID <- c(groupOfID, monitor)
+      groupOfNobs <- c(groupOfNobs, numberObservedCases)
     }
   }
-  data.frame(id = listOfID, nobs = listOfNobs)
+  data.frame(id = groupOfID, nobs = groupOfNobs)
+}
+
+completeCasesFromAllObserved <- function(observedCases) {
+  count <- 0
+  for(i in row.names(observedCases)) {
+    if(isComplete(observedCases[i, ])) {
+      count <- count + 1
+    }
+  }
+  count
 }
 
 isComplete <- function(observedCase) {
   !is.na(observedCase$sulfate) & !is.na(observedCase$nitrate)
 }
 
-readLectureFromMonitor <- function(monitorID, directory) {
+readLectureOfMonitor <- function(monitorID, directory) {
   zeroBefore <- if(monitorID < 10) {
     "00"
   }
