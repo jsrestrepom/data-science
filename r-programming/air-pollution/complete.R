@@ -22,7 +22,7 @@ completeCasesFromAllObserved <- function(observedCases) {
 }
 
 isComplete <- function(observedCase) {
-  !is.na(observedCase$sulfate) & !is.na(observedCase$nitrate)
+  !(is.na(observedCase$sulfate) | is.na(observedCase$nitrate))
 }
 
 readLectureOfMonitor <- function(monitorID, directory) {
