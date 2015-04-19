@@ -3,10 +3,8 @@ complete <- function(directory, id = 1:332) {
   groupOfNobs <- NULL
   for(monitor in id) {
     numberObservedCases <- numberOfCompleteCasesFrom(readLectureOfMonitor(monitor, directory))
-    if(numberObservedCases > 0) {
-      groupOfID <- c(groupOfID, monitor)
-      groupOfNobs <- c(groupOfNobs, numberObservedCases)
-    }
+    groupOfID <- c(groupOfID, monitor)
+    groupOfNobs <- c(groupOfNobs, numberObservedCases)
   }
   data.frame(id = groupOfID, nobs = groupOfNobs)
 }
