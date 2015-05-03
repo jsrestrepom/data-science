@@ -19,8 +19,8 @@ best <- function(state, outcome) {
   rate
 }
 
-isValid.state <- function(state, allStates) {
-  if (length(allStates[allStates == state]) > 0) {
+isValid.state <- function(state, state.all) {
+  if (length(state.all[state.all == state]) > 0) {
     TRUE
   }
   else {
