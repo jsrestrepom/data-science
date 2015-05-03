@@ -1,2 +1,4 @@
 language: r
 sudo: required
+github_packages:
+  - devtools
